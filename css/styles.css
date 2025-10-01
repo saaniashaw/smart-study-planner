@@ -1,0 +1,376 @@
+/* Smart Study Planner — colorful theme restored
+   - Poppins (headings) + Roboto (body)
+   - Smaller font sizes
+   - Glassmorphism + purple/teal gradient
+   - Theme-aware variables for priorities and action buttons
+   - Improved dark-mode contrast (not washed out)
+*/
+
+/* ---------- Fonts ----------
+   Add to <head> in index.html if not already:
+   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+*/
+
+/* ---------- Root variables (Light theme - colorful) ---------- */
+:root{
+  /* base */
+  --bg-0: linear-gradient(135deg, #cfd0f9, #a8a9df);
+  --bg-1: linear-gradient(135deg, #f7c1ec, #da95cc);
+  --card: rgba(255, 255, 255, 0.88); /* slightly translucent card */
+  --glass: rgba(255,255,255,0.55);
+  --glass-border: rgba(255,255,255,0.45);
+
+  --muted: #6b7280;     /* muted text color */
+  --text: #2b2161;      /* body text */
+
+  /* colorful accents (original vibe) */
+  --accent: #510f6b;    /* purple */
+  --accent-2: #1d63f0;  /* teal */
+
+  /* semantic */
+  --success: #10b981;
+  --warn: #f59e0b;
+  --danger: #ef4444;
+
+  /* UI sizes & tokens */
+  --radius-sm: 8px;
+  --radius: 14px;
+  --radius-lg: 20px;
+
+  --shadow-soft: 0 8px 30px rgba(12,18,37,0.06);
+  --shadow-elev: 0 18px 50px rgba(12,18,37,0.08);
+  --transition: 260ms cubic-bezier(.2,.9,.3,1);
+  --focus-ring: rgba(109,40,217,0.10);
+
+  /* Priority colors (light) — vivid */
+  --priority-high: #dc2626;   /* red */
+  --priority-medium: #f59e0b; /* amber */
+  --priority-low: #10b981;    /* green */
+
+  /* Buttons (light) */
+  --btn-complete: #065f46;    /* green-dk */
+  --btn-edit: #0b7285;        /* teal-dk */
+  --btn-delete: #9b1c1c;      /* red-dk */
+  --btn-text: #2b2161;
+
+  /* misc */
+  --header-accent-bg: linear-gradient(90deg, rgba(109,40,217,0.08), rgba(6,182,212,0.04));
+}
+
+/* ---------- Dark theme overrides (colorful + readable) ---------- */
+body.dark{
+  /* darker slate background (keeps colorful accents) */
+  --bg-0: linear-gradient(135deg, #0f2027, #203a43, #2c5364); 
+  --bg-1: linear-gradient(135deg, #0f2027, #203a43, #2c5364); 
+  --card: rgba(15,23,36,0.76);
+  --glass: rgba(255,255,255,0.03);
+  --glass-border: rgba(255,255,255,0.04);
+
+  --muted: #94a3b8;   /* lighter muted for dark */
+  --text: #786faa;    /* readable text */
+
+  --accent: #e093e7;  /* slightly lighter purple in dark */
+  --accent-2: #3f1bac;
+
+  --shadow-soft: none;
+  --shadow-elev: 0 14px 40px rgba(0,0,0,0.55);
+
+  /* soften priority colors for dark readability */
+  --priority-high: #fca5a5;
+  --priority-medium: #fcd34d;
+  --priority-low: #86efac;
+
+  --btn-complete: #6ee7b7;
+  --btn-edit: #7dd3fc;
+  --btn-delete: #fda4af;
+  --btn-text: #8b7fbc;
+
+  --header-accent-bg: linear-gradient(90deg, rgba(124,58,237,0.12), rgba(6,182,212,0.06));
+}
+
+/* ---------- Reset & base ---------- */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: "Roboto", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-size:14px; /* slightly smaller */
+  background: var(--bg-0);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  padding:22px 18px;
+  transition: background var(--transition), color var(--transition);
+  line-height:1.45;
+}
+
+/* container */
+.container{
+  max-width:1100px;
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+
+/* header */
+header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+header h1{
+  margin:0;
+  font-size:1.3rem;
+  font-family: "Poppins", sans-serif;
+  letter-spacing:-0.02em;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.header-accent{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:6px 10px;
+  border-radius:999px;
+  background: var(--header-accent-bg);
+  color:var(--muted);
+  font-weight:600;
+  font-size:0.9rem;
+}
+
+/* ---------- Controls (form & filters) ---------- */
+.controls{ display:grid; gap:12px; }
+
+/* form card */
+#task-form{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+  padding:12px;
+  border-radius:var(--radius);
+  background: linear-gradient(135deg, rgba(255,255,255,0.72), rgba(255,255,255,0.6));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-soft);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+/* inputs/select */
+#task-form input[type="text"],
+#task-form input[type="datetime-local"],
+#task-form select {
+  padding:9px 12px;
+  border-radius:10px;
+  border:1px solid rgba(12,18,37,0.06);
+  min-width:160px;
+  background:transparent;
+  color:var(--text);
+  outline:none;
+  transition: box-shadow var(--transition), transform var(--transition);
+  font-size:0.95rem;
+}
+
+/* subtle focus */
+#task-form input:focus,
+#task-form select:focus{
+  box-shadow: 0 8px 30px var(--focus-ring);
+  transform: translateY(-2px);
+  border-color: rgba(109,40,217,0.18);
+}
+
+/* submit primary */
+#submit-btn{
+  background: linear-gradient(90deg,var(--accent),var(--accent-2));
+  color:white;
+  padding:10px 14px;
+  border-radius:10px;
+  border:none;
+  cursor:pointer;
+  font-weight:700;
+  letter-spacing:0.2px;
+  box-shadow: 0 10px 28px rgba(79,70,229,0.12);
+  transition: transform var(--transition);
+}
+#submit-btn:hover{ transform: translateY(-3px); }
+
+/* cancel / secondary */
+#cancel-edit{
+  padding:9px 12px;
+  border-radius:10px;
+  border:1px solid rgba(12,18,37,0.06);
+  background:transparent;
+  cursor:pointer;
+}
+
+/* inline controls */
+.inline-controls{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+.inline-controls input,
+.inline-controls select{
+  padding:9px 12px;
+  border-radius:10px;
+  border:1px solid rgba(12,18,37,0.06);
+  background:transparent;
+  min-width:160px;
+  color:var(--muted);
+}
+
+/* dark toggle */
+#toggle-dark{
+  padding:9px 11px;
+  border-radius:10px;
+  border:1px solid rgba(12,18,37,0.06);
+  background:transparent;
+  cursor:pointer;
+  color:var(--muted);
+}
+
+/* ---------- Progress ---------- */
+.progress{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+.progress-bar{
+  flex:1 1 60%;
+  height:14px;
+  background: linear-gradient(180deg, rgba(2,6,23,0.03), rgba(2,6,23,0.02));
+  border-radius:999px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,0.4);
+}
+.fill{
+  height:100%;
+  width:0%;
+  background: linear-gradient(90deg,var(--accent),var(--accent-2));
+  transition: width 700ms cubic-bezier(.2,.9,.3,1);
+  box-shadow: 0 8px 30px rgba(79,70,229,0.12);
+}
+#progress-text{
+  font-size:0.85rem;
+  min-width:170px;
+  color:var(--muted);
+  font-weight:600;
+}
+
+/* ---------- Task list ---------- */
+.task-list{ display:grid; gap:12px; }
+
+/* task card */
+.task-card{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px;
+  border-radius:12px;
+  background: var(--card);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-soft);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.task-card:hover{
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-elev);
+}
+
+/* meta */
+.task-meta{ display:flex; flex-direction:column; gap:6px; max-width:70%; }
+.task-title{
+  font-size:0.95rem;
+  font-family:"Poppins", sans-serif;
+  font-weight:700;
+  display:flex;
+  gap:8px;
+  align-items:center;
+  word-break:break-word;
+}
+.task-sub{
+  font-size:0.85rem;
+  color:var(--muted);
+}
+
+/* action buttons */
+.btns{ display:flex; gap:8px; align-items:center; }
+.btns button{
+  padding:8px 10px;
+  border-radius:10px;
+  border:1px solid rgba(12,18,37,0.06);
+  background:transparent;
+  cursor:pointer;
+  font-weight:700;
+  color:var(--btn-text);
+}
+
+/* ---------- Priority stripes (vivid) ---------- */
+.priority-high{ border-left:6px solid var(--priority-high); padding-left:12px; }
+.priority-medium{ border-left:6px solid var(--priority-medium); padding-left:12px; }
+.priority-low{ border-left:6px solid var(--priority-low); padding-left:12px; }
+
+/* button-specific colors (theme-aware) */
+.btns .btn-complete{ color:var(--btn-complete); border-color: rgba(0,0,0,0.04); }
+.btns .btn-edit{ color:var(--btn-edit); border-color: rgba(0,0,0,0.04); }
+.btns .btn-delete{ color:var(--btn-delete); border-color: rgba(0,0,0,0.04); }
+
+/* hover polish */
+.btns .btn-complete:hover,
+.btns .btn-edit:hover,
+.btns .btn-delete:hover{ transform:translateY(-2px); opacity:0.95; }
+
+/* ---------- Completed badge ---------- */
+.task-completed{
+  margin-left:8px;
+  padding:6px 8px;
+  border-radius:999px;
+  font-weight:800;
+  font-size:0.78rem;
+  color:#064e3b;
+  background: linear-gradient(180deg,#dcfce7,#bbf7d0);
+}
+
+/* ---------- Timeline ---------- */
+.timeline{
+  margin-top:4px;
+  padding:12px;
+  border-radius:12px;
+  background: transparent;
+  border:1px solid var(--glass-border);
+  box-shadow: var(--shadow-soft);
+}
+.timeline h3{ margin:0 0 10px 0; font-size:1rem; }
+#timeline-content{ display:flex; flex-direction:column; gap:10px; }
+.timeline-day{
+  padding:10px;
+  border-radius:10px;
+  background: rgba(0,0,0,0.02);
+  color:var(--muted);
+  font-size:0.85rem;
+}
+
+/* ---------- Utilities & responsive ---------- */
+.small{ font-size:0.86rem; color:var(--muted) }
+.hidden{ display:none !important; }
+
+@media (max-width:920px){
+  .container{ padding:0 10px; }
+  #task-form input, #task-form select{ min-width:140px; }
+  .task-meta{ max-width:60%; }
+}
+@media (max-width:640px){
+  body{ padding:18px 12px; }
+  #task-form{ gap:8px; padding:10px; }
+  #task-form input, #task-form select{ min-width:100%; }
+  .inline-controls{ flex-direction:column; align-items:stretch; }
+  .task-meta{ max-width:100%; }
+  .btns button{ padding:7px 8px; }
+}
+
+/* keyboard focus visible */
+:focus{ outline: 3px solid rgba(109,40,217,0.10); outline-offset:2px; }

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Smart Study Planner</title>
+        <link rel="stylesheet" href="css/styles.css">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+            <!--header-->
+            <header>
+                <h1>Smart Study Planner</h1>
+            </header>
+            <!--task form-->
+            <section class="controls">
+                <form id="task-form">
+                    <input id="title" type="text" placeholder="Task Title" required>
+                    <input id="subject" type="text" placeholder="Subject (e.g. Math)">
+                    <input id="dueDate" type="datetime-local" required>
+
+                    <select id="priority">
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+
+                    <button id="submit-btn" type="submit">Add Task</button>
+                    <button id="cancel-edit" type="button" style="display:none">Cancel</button>
+                </form>
+
+                <!--Search & Filters-->
+                <div class="inline-controls">
+                    <input id="search" placeholder="Search tasks...">
+                    <select id="filter-priority">
+                        <option value="all">All priorities</option>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                    <button id="toggle-dark" type="button">Dark</button>
+                </div>
+            </section>
+
+            <!--Progress Section-->
+            <section id="progress" class="progress">
+                <div class="progress-bar">
+                    <div id="progress-fill" class="fill"></div>
+                </div>
+                <p id="progress-text">0 / 0 tasks completed</p>
+            </section>
+
+            <!--Task List-->
+            <section id="task-list" class="task-list">
+                <!--task dynamically added here-->
+            </section>
+
+            <!--timeline-->
+            <section id="timeline" class="timeline">
+                <h3>Timeline</h3>
+                <div id="timeline-content">
+                    <!--timeline dynamically generated-->
+                </div>
+            </section>
+
+        </div>
+
+        <script src="js/app.js"></script>
+    </body>
+</html>
