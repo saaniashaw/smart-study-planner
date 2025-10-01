@@ -1,15 +1,3 @@
-/* Smart Study Planner — colorful theme restored
-   - Poppins (headings) + Roboto (body)
-   - Smaller font sizes
-   - Glassmorphism + purple/teal gradient
-   - Theme-aware variables for priorities and action buttons
-   - Improved dark-mode contrast (not washed out)
-*/
-
-/* ---------- Fonts ----------
-   Add to <head> in index.html if not already:
-   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-*/
 
 /* ---------- Root variables (Light theme - colorful) ---------- */
 :root{
